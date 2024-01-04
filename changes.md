@@ -25,3 +25,15 @@ Environment Variables: Use environment variables for configuration settings like
 Swagger UI Configuration: Define the SWAGGER_URL and API_URL inside the app configuration.
 
 # v6 added API endpoint : /v1/account/list"
+
+# v7 
+The code is already quite well-structured and follows good practices. However, there are a few areas where it could be optimized:
+
+1. Database Connection Pooling: The current implementation creates a new database connection for each request. This can be inefficient and slow. A better approach would be to use a connection pool. Python has several libraries for this, such as sqlalchemy.
+
+2. Error Handling: The code could benefit from more robust error handling. For example, in the register function, it only catches sqlite3.IntegrityError. It would be better to catch a general exception at the end to handle unexpected errors.
+
+3. Password Hashing: The bcrypt library is a good choice for password hashing, but it's better to use a higher-level library like passlib that provides a more user-friendly API and supports a variety of hashing algorithms.
+
+4. Environment Variables: The code uses os.getenv to get environment variables with a default value. It's better to use a configuration file or a dedicated environment manager like python-decouple.
+
