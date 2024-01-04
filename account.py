@@ -65,6 +65,26 @@ def profile():
         return jsonify({'username': user['username'], 'email': user['email']})
     return jsonify({'status': 'fail', 'message': 'Invalid or expired session token'}), 401
 
+# Endpoint to update user profile
+@app.route('/update-profile', methods=['PATCH'])
+def update_profile():
+    token = request.headers.get('Authorization')  # Token provided in the header
+    new_email = request.form['email']
+    
+    if not token:
+        return jsonify({'status': 'fail', 'message': 'Authentication token is required'}), 401
+    
+    db = get_db_connection()
+    user = db.execute('SELECT * FROM users WHERE token = ?', (token,)).fetchone()
+    
+    if user:
+        db.execute('UPDATE users SET email = ? WHERE id = ?', (new_email, user['id']))
+        db.commit()
+        return jsonify({'status': 'success', 'message': 'User profile updated successfully'})
+    else:
+        return jsonify({'status': 'fail', 'message': 'Invalid or expired session token'}), 401
+
+
 # Endpoint for user logout
 @app.route('/logout', methods=['GET'])
 def logout():
