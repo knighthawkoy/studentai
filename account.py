@@ -100,6 +100,16 @@ def delete_account(user):
     db.commit()
     return jsonify({'status': 'success', 'message': 'User account deleted successfully'}), 200
 
+
+# list users
+@app.route('/v1/account/list', methods=['GET'])
+@token_required
+def list_users(user):
+    db = create_db_pool()
+    users = db.execute('SELECT * FROM users').fetchall()
+    return jsonify({'users': users}), 200
+
+
 @app.route('/swagger.json')
 def swagger():
     try:
