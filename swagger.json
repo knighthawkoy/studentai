@@ -15,7 +15,7 @@
   ],
   "schemes": ["http"],
   "paths": {
-    "/account/register": {
+    "/v1/account/register": {
       "post": {
         "tags": ["account"],
         "summary": "Register a new user",
@@ -55,7 +55,7 @@
         }
       }
     },
-    "/account/login": {
+    "/v1/account/login": {
       "post": {
         "tags": ["account"],
         "summary": "Log in a user",
@@ -88,7 +88,7 @@
         }
       }
     },
-    "/account/profile": {
+    "/v1/account/profile": {
       "get": {
         "tags": ["account"],
         "summary": "Get user profile",
@@ -113,7 +113,7 @@
         }
       }
     },
-    "/account/update-profile": {
+    "/v1/account/update-profile": {
       "patch": {
         "tags": ["account"],
         "summary": "Update user profile",
@@ -145,7 +145,7 @@
         }
       }
     },
-    "/account/logout": {
+    "/v1/account/logout": {
       "post": {
         "tags": ["account"],
         "summary": "Log out the current user",
@@ -169,7 +169,7 @@
         }
       }
     },
-    "/account/delete": {
+    "/v1/account/delete": {
       "delete": {
         "tags": ["account"],
         "summary": "Delete user account",

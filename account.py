@@ -32,7 +32,7 @@ def init_db():
         db.commit()
 
 # Endpoint for user registration
-@app.route('/account/register', methods=['POST'])
+@app.route('/v1/account/register', methods=['POST'])
 def register():
     username = request.form['username']
     email = request.form['email']
@@ -52,7 +52,7 @@ def register():
     return jsonify({'status': 'success', 'message': 'User registered successfully'}), 201
 
 # Endpoint for user login
-@app.route('/account/login', methods=['POST'])
+@app.route('/v1/account/login', methods=['POST'])
 def login():
     username = request.form['username']
     password = request.form['password'].encode('utf-8')
@@ -68,7 +68,7 @@ def login():
         return jsonify({'status': 'fail', 'message': 'Invalid username or password'}), 401
 
 # Endpoint for user profile
-@app.route('/account/profile', methods=['GET'])
+@app.route('/v1/account/profile', methods=['GET'])
 def profile():
     token = request.headers.get('Authorization')
     if not token:
@@ -80,7 +80,7 @@ def profile():
         return jsonify({'username': user['username'], 'email': user['email']})
     return jsonify({'status': 'fail', 'message': 'Invalid or expired session token'}), 401
 
-@app.route('/account/update-profile', methods=['PATCH'])
+@app.route('/v1/account/update-profile', methods=['PATCH'])
 def update_profile():
     token = request.headers.get('Authorization')
     new_email = request.form['email']
@@ -98,7 +98,7 @@ def update_profile():
     else:
         return jsonify({'status': 'fail', 'message': 'Invalid or expired session token'}), 401
 
-@app.route('/account/logout', methods=['POST'])  # Changed to POST
+@app.route('/v1/account/logout', methods=['POST'])  # Changed to POST
 def logout():
     token = request.headers.get('Authorization')
     if not token:
@@ -110,7 +110,7 @@ def logout():
     return jsonify({'status': 'success', 'message': 'User logged out successfully'})
 
 
-@app.route('/account/delete', methods=['DELETE'])
+@app.route('/v1/account/delete', methods=['DELETE'])
 def delete_account():
     token = request.headers.get('Authorization')
     if not token:
