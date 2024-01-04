@@ -14,3 +14,13 @@ Replaced app.run() with a production-ready WSGI server like waitress.
 
 Now supports deleting the user.
 
+# v5 changes
+
+Database Connection Pooling: Instead of creating a new database connection on every request, use a connection pool to manage the connections efficiently.
+Password Hashing in Background Task: For better performance with bcrypt, hashing can be done asynchronously if it's allowed in your setup.
+Global Database Connection: Initialize the global database connection once rather than on each function call.
+Error Handling: Improve error handling with more specific exceptions and ensure sensitive information is not returned in responses.
+Token Validation: Create a separate decorator function for validating tokens to reduce redundancy across different routes.
+Environment Variables: Use environment variables for configuration settings like the database path or server port.
+Swagger UI Configuration: Define the SWAGGER_URL and API_URL inside the app configuration.
+
