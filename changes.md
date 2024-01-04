@@ -24,3 +24,4 @@ Token Validation: Create a separate decorator function for validating tokens to 
 Environment Variables: Use environment variables for configuration settings like the database path or server port.
 Swagger UI Configuration: Define the SWAGGER_URL and API_URL inside the app configuration.
 
+# v6 added API endpoint : /v1/account/list"

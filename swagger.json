@@ -169,6 +169,46 @@
         }
       }
     },
+
+    "/v1/account/list": {
+      "get": {
+          "tags": ["account"],
+          "summary": "List users",
+          "description": "Retrieve a list of all users",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "description": "Authentication token",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+              "200": {
+                  "description": "Successful operation",
+                  "schema": {
+                      "type": "array",
+                      "items": {
+                          "type": "object",
+                          "properties": {
+                              "id": {
+                                  "type": "integer"
+                              },
+                              "name": {
+                                  "type": "string"
+                              },
+                              "email": {
+                                  "type": "string"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      }
+    },
+
     "/v1/account/delete": {
       "delete": {
         "tags": ["account"],

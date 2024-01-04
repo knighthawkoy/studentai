@@ -16,3 +16,5 @@ curl -X PATCH http://127.0.0.1:5000/update-profile \
      -d "email=NEW_EMAIL@example.com"
 
 
+curl -X GET http://127.0.0.1:5000/v1/account/list -H "Authorization: 29a3b2fc-1292-4f5c-b4b5-4702365b3aa1"
+
