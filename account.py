@@ -1,11 +1,13 @@
 from flask import Flask, request, jsonify
 from uuid import uuid4
+from flask_swagger_ui import get_swaggerui_blueprint
 import sqlite3
 import os
+import json
 
 app = Flask(__name__)
 
-DATABASE = '/opt/x/project/users.db'
+DATABASE = './users.db'
 
 # Function to get a database connection
 def get_db_connection():
@@ -29,19 +31,25 @@ def init_db():
         db.commit()
 
 # Endpoint for user registration
-@app.route('/register', methods=['POST'])
+@app.route('/account/register', methods=['POST'])
 def register():
     username = request.form['username']
     email = request.form['email']
-    password = request.form['password']  # In real-world, passwords must be hashed
+
+    password = request.form['password'].encode('utf-8')  # Encode the password before hashing
+
+    # Generate a salt and hash the password
+    salt = bcrypt.gensalt()
+    hashed_password = bcrypt.hashpw(password, salt)
+
     db = get_db_connection()
     db.execute('INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
-               (username, email, password))  # Password hashing should be used here
+               (username, email, hashed_password))  # Password hashing should be used here
     db.commit()
     return jsonify({'status': 'success', 'message': 'User registered successfully'}), 201
 
 # Endpoint for user login
-@app.route('/login', methods=['POST'])
+@app.route('/account/login', methods=['POST'])
 def login():
     username = request.form['username']
     password = request.form['password']
@@ -56,7 +64,7 @@ def login():
         return jsonify({'status': 'fail', 'message': 'Invalid username or password'}), 401
 
 # Endpoint for user profile
-@app.route('/profile', methods=['GET'])
+@app.route('/account/profile', methods=['GET'])
 def profile():
     token = request.headers.get('Authorization')  # Token provided in the header
     db = get_db_connection()
@@ -66,7 +74,7 @@ def profile():
     return jsonify({'status': 'fail', 'message': 'Invalid or expired session token'}), 401
 
 # Endpoint to update user profile
-@app.route('/update-profile', methods=['PATCH'])
+@app.route('/account/update-profile', methods=['PATCH'])
 def update_profile():
     token = request.headers.get('Authorization')  # Token provided in the header
     new_email = request.form['email']
@@ -86,13 +94,30 @@ def update_profile():
 
 
 # Endpoint for user logout
-@app.route('/logout', methods=['GET'])
+@app.route('/account/logout', methods=['GET'])
 def logout():
     token = request.headers.get('Authorization')
     db = get_db_connection()
     db.execute('UPDATE users SET token = NULL WHERE token = ?', (token,))
     db.commit()
     return jsonify({'status': 'success', 'message': 'User logged out successfully'})
+
+# Configure Swagger UI
+SWAGGER_URL = '/swagger'
+API_URL = 'http://127.0.0.1:5000/swagger.json'
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Sample API"
+    }
+)
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+
+@app.route('/swagger.json')
+def swagger():
+    with open('swagger.json', 'r') as f:
+        return jsonify(json.load(f))
 
 # Initialize the database
 init_db()
