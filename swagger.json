@@ -1,155 +1,198 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "title": "User Management API",
-        "description": "API for user registration, login, profile management, and logout.",
-        "version": "1.0.0"
-    },
-    "host": "127.0.0.1:5000",
-    "schemes": [
-        "http"
-    ],
-    "basePath": "/",
-    "produces": [
-        "application/json"
-    ],
-    "paths": {
-        "/account/register": {
-            "post": {
-                "summary": "Register a new user",
-                "description": "Endpoint for user registration",
-                "parameters": [
-                    {
-                        "in": "formData",
-                        "name": "username",
-                        "type": "string",
-                        "required": true,
-                        "description": "Desired username"
-                    },
-                    {
-                        "in": "formData",
-                        "name": "email",
-                        "type": "string",
-                        "required": true,
-                        "description": "User's email address"
-                    },
-                    {
-                        "in": "formData",
-                        "name": "password",
-                        "type": "string",
-                        "required": true,
-                        "description": "Password for the account"
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "User registered successfully"
-                    }
-                }
-            }
-        },
-        "/account/login": {
-            "post": {
-                "summary": "Log in a user",
-                "description": "Endpoint for user login",
-                "parameters": [
-                    {
-                        "in": "formData",
-                        "name": "username",
-                        "type": "string",
-                        "required": true,
-                        "description": "Registered username"
-                    },
-                    {
-                        "in": "formData",
-                        "name": "password",
-                        "type": "string",
-                        "required": true,
-                        "description": "Correct password for the username"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "User logged in successfully"
-                    },
-                    "401": {
-                        "description": "Invalid username or password"
-                    }
-                }
-            }
-        },
-        "/account/profile": {
-            "get": {
-                "summary": "Get user profile",
-                "description": "Endpoint to retrieve user profile",
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "Authorization",
-                        "type": "string",
-                        "required": true,
-                        "description": "Session token obtained from login"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Profile data retrieved successfully"
-                    },
-                    "401": {
-                        "description": "Invalid or expired session token"
-                    }
-                }
-            }
-        },
-        "/account/update-profile": {
-            "patch": {
-                "summary": "Update user profile",
-                "description": "Endpoint to update the user's email address",
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "Authorization",
-                        "type": "string",
-                        "required": true,
-                        "description": "Session token obtained from login"
-                    },
-                    {
-                        "in": "formData",
-                        "name": "email",
-                        "type": "string",
-                        "required": true,
-                        "description": "New email address for the user"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Profile updated successfully"
-                    },
-                    "401": {
-                        "description": "Authentication token is required or invalid"
-                    }
-                }
-            }
-        },
-        "/account/logout": {
-            "get": {
-                "summary": "Log out user",
-                "description": "Endpoint for user logout, which invalidates the session token",
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "Authorization",
-                        "type": "string",
-                        "required": true,
-                        "description": "Session token obtained from login"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "User logged out successfully"
-                    }
-                }
-            }
-        }
+  "swagger": "2.0",
+  "info": {
+    "description": "API for user account management",
+    "version": "1.0.0",
+    "title": "User Account API"
+  },
+  "host": "127.0.0.1:5000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "account",
+      "description": "Operations related to user accounts"
     }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/account/register": {
+      "post": {
+        "tags": ["account"],
+        "summary": "Register a new user",
+        "description": "",
+        "consumes": ["application/x-www-form-urlencoded"],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "formData",
+            "description": "Username for the new user",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "Email of the new user",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "Password for the new user",
+            "required": true,
+            "type": "string",
+            "format": "password"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User registered successfully"
+          },
+          "400": {
+            "description": "Failed to register user"
+          }
+        }
+      }
+    },
+    "/account/login": {
+      "post": {
+        "tags": ["account"],
+        "summary": "Log in a user",
+        "description": "",
+        "consumes": ["application/x-www-form-urlencoded"],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "formData",
+            "description": "Username of the user",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "Password for the user",
+            "required": true,
+            "type": "string",
+            "format": "password"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User logged in successfully"
+          },
+          "401": {
+            "description": "Invalid username or password"
+          }
+        }
+      }
+    },
+    "/account/profile": {
+      "get": {
+        "tags": ["account"],
+        "summary": "Get user profile",
+        "description": "Retrieve the profile information for the logged-in user.",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authentication token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile information retrieved successfully"
+          },
+          "401": {
+            "description": "Authentication token is required or invalid"
+          }
+        }
+      }
+    },
+    "/account/update-profile": {
+      "patch": {
+        "tags": ["account"],
+        "summary": "Update user profile",
+        "description": "Update the email for the logged-in user.",
+        "consumes": ["application/x-www-form-urlencoded"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authentication token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "New email for the user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile updated successfully"
+          },
+          "401": {
+            "description": "Authentication token and new email are required"
+          }
+        }
+      }
+    },
+    "/account/logout": {
+      "post": {
+        "tags": ["account"],
+        "summary": "Log out the current user",
+        "description": "Invalidate the current user's session token.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authentication token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User logged out successfully"
+          },
+          "401": {
+            "description": "Authentication token is required"
+          }
+        }
+      }
+    },
+    "/account/delete": {
+      "delete": {
+        "tags": ["account"],
+        "summary": "Delete user account",
+        "description": "Delete the account for the logged-in user.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authentication token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User account deleted successfully"
+          },
+          "401": {
+            "description": "Authentication token is required or invalid"
+          }
+        }
+      }
+    }
+  }
 }
+
