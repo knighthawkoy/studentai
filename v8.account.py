@@ -7,7 +7,7 @@ from decouple import config
 import json
 from sqlalchemy.exc import IntegrityError
 import re
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Sequence
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -16,7 +16,7 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = 'users'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, Sequence('user_id_seq', start=1000), primary_key=True)
     username = Column(String, unique=True) 
     email = Column(String, unique=True)
     password = Column(String)
