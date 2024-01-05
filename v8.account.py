@@ -23,7 +23,7 @@ class User(Base):
     token = Column(String)
 
 app = Flask(__name__)
-swaggerui_blueprint = get_swaggerui_blueprint('/docs', '/swagger.json')
+swaggerui_blueprint = get_swaggerui_blueprint('/docs', '/static/swagger.json')
 app.register_blueprint(swaggerui_blueprint, url_prefix='/docs')
 
 DATABASE = config('DATABASE_PATH', default='./users3.db')

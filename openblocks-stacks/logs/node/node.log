@@ -1,0 +1,14 @@
+{"level":30,"time":1704429604052,"pid":137,"hostname":"a01fdb1100bb","msg":"twilio spec list loaded, duration: 2294.3295789957047 ms"}
+{"level":30,"time":1704429604158,"pid":137,"hostname":"a01fdb1100bb","msg":"did spec list loaded, duration: 102.2301139831543 ms"}
+{"level":30,"time":1704429604208,"pid":137,"hostname":"a01fdb1100bb","msg":"The server is running on port: 6060"}
+[0mGET /node-service/api/plugins [32m200[0m 74.312 ms - 31025[0m
+[0mGET /node-service/api/plugins [32m200[0m 24.920 ms - 31025[0m
+[0mGET /node-service/api/plugins [32m200[0m 19.301 ms - 31025[0m
+[0mGET /node-service/api/plugins [32m200[0m 21.000 ms - 31025[0m
+[0mGET /node-service/api/plugins [32m200[0m 19.136 ms - 31025[0m
+[0mGET /node-service/api/plugins [32m200[0m 21.349 ms - 31025[0m
+[0mGET /node-service/api/plugins [32m200[0m 24.801 ms - 31025[0m
+[0mGET /node-service/api/plugins [32m200[0m 15.242 ms - 31025[0m
+[0mGET /node-service/api/plugins [32m200[0m 19.933 ms - 31025[0m
+[0mGET /node-service/api/plugins [32m200[0m 21.714 ms - 31025[0m
+[0mGET /node-service/api/plugins [32m200[0m 22.772 ms - 31025[0m
