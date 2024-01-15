@@ -1,0 +1,20 @@
+Register user
+curl -X POST http://127.0.0.1:5000/register -d "username=testuser&email=testuser@example.com&password=password123"
+
+Login user : 
+curl -X POST http://127.0.0.1:5000/login -d "username=testuser&password=password123"
+
+Access profile:
+curl -X GET http://127.0.0.1:5000/profile -H "Authorization: YOUR_TOKEN"
+
+Logout :
+curl -X GET http://127.0.0.1:5000/logout -H "Authorization: YOUR_TOKEN"
+
+Update profile
+curl -X PATCH http://127.0.0.1:5000/update-profile \
+     -H "Authorization: YOUR_TOKEN" \
+     -d "email=NEW_EMAIL@example.com"
+
+
+curl -X GET http://127.0.0.1:5000/v1/account/list -H "Authorization: 29a3b2fc-1292-4f5c-b4b5-4702365b3aa1"
+

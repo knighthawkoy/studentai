@@ -1,0 +1,30 @@
+FROM alpine:latest as main-linux-amd64
+ARG PB_VERSION=0.26.6
+RUN apk --no-cache add curl unzip ca-certificates
+RUN adduser -s /bin/bash -D pocketbase
+
+USER pocketbase
+
+WORKDIR /app/data
+# ADD https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/pocketbase_${PB_VERSION}_linux_amd64.zip /tmp/pb.zip
+RUN curl -LJ https://github.com/pocketbase/pocketbase/releases/download/v0.20.6/pocketbase_0.20.6_linux_amd64.zip -o /tmp/pb.zip
+RUN unzip /tmp/pb.zip -d /app/data/
+RUN rm /tmp/pb.zip
+
+FROM main-${TARGETOS}-${TARGETARCH}${TARGETVARIANT}
+
+ENV PRIVATE_POCKETBASE_ADMIN="superadmin"
+ENV PRIVATE_POCKETBASE_PASSWORD="Jas$2024"
+ENV PRIVATE_POCKETBASE_ENCRYPTION="JasAI#enc%"
+EXPOSE 8090
+# VOLUME [ "pocketbase-volume:/pb/data:/home/pocketbase/pb_data" ]
+# VOLUME [ "pocketbase-volume:/pb/migrations:/home/pocketbase/pb_migrations" ]
+# VOLUME [ "pocketbase-volume:/pb/hooks:/home/pocketbase/pb_hooks" ]
+# VOLUME [ "pocketbase-volume:/pb/public:/home/pocketbase/pb_public" ]
+
+COPY --chown=pocketbase --chmod=700 ./entrypoint.sh .
+# Optional if you have local migrations or hooks
+# COPY --chown=pocketbase --chmod=700 ./pb_data/ ./pb_data
+# COPY --chown=pocketbase --chmod=700 ./pb_migrations/ ./pb_migrations
+# COPY --chown=pocketbase --chmod=700 ./pb_hooks/ ./pb_hooks
+ENTRYPOINT [ "./entrypoint.sh" ]
