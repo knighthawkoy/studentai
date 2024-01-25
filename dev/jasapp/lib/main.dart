@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:pocketbase/pocketbase.dart';
 
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-      body: LoginForm(),
+        body: LoginForm(),
       ),
     );
   }
@@ -60,10 +59,9 @@ class LoginFormState extends State<LoginForm> {
     }
   }
 
-@override
-Widget build(BuildContext context) {
-
-if (isLoggedIn) {
+  @override
+  Widget build(BuildContext context) {
+    if (isLoggedIn) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -71,69 +69,69 @@ if (isLoggedIn) {
           Text('Is Valid: $isValid'),
           Text('Token: $token'),
           Text('Model ID: $modelId'),
-           ElevatedButton(
-            onPressed: () {
-              setState(() {
-                isLoggedIn = false;
-                isValid = null;
-                token = null;
-                modelId = null;
-              });
-            },
-            child: Text('Logout')), 
+          ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  isLoggedIn = false;
+                  isValid = null;
+                  token = null;
+                  modelId = null;
+                });
+              },
+              child: Text('Logout')),
         ],
       );
     }
 
-
-  return Form(
-    key: _formKey,
-    child: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: <Widget>[
-          TextFormField(
-            controller: _emailController,
-            decoration: InputDecoration(
-              labelText: 'Email',
-              border: OutlineInputBorder(),
+    return Form(
+      key: _formKey,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, // Add this line
+          children: <Widget>[
+            TextFormField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                labelText: 'Email',
+                border: OutlineInputBorder(),
+              ),
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your email';
+                } else if (!value.contains('@')) {
+                  return 'Please enter a valid email';
+                }
+                return null;
+              },
             ),
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your email';
-              } else if (!value.contains('@')) {
-                return 'Please enter a valid email';
-              }
-              return null;
-            },
-          ),
-          SizedBox(height: 16.0), // Add some spacing
-          TextFormField(
-            controller: _passwordController,
-            decoration: InputDecoration(
-              labelText: 'Password',
-              border: OutlineInputBorder(),
+            SizedBox(height: 16.0), // Add some spacing
+            TextFormField(
+              controller: _passwordController,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                border: OutlineInputBorder(),
+              ),
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your password';
+                }
+                return null;
+              },
+              obscureText: true, // Hide the password input
             ),
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your password';
-              }
-              return null;
-            },
-            obscureText: true, // Hide the password input
-          ),
-          SizedBox(height: 16.0), // Add some spacing
-          ElevatedButton(
-            onPressed: _authenticateUser,
-            child: const Text('Sign In'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.blue, // Set the button color
-              onPrimary: Colors.white, // Set the text color
+            SizedBox(height: 16.0), // Add some spacing
+            ElevatedButton(
+              onPressed: _authenticateUser,
+              child: const Text('Sign In'),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue, // Set the button color
+                onPrimary: Colors.white, // Set the text color
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 }
