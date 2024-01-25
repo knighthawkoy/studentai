@@ -33,17 +33,24 @@ class LoginFormState extends State<LoginForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  // Define your variables here
+  String? isValid;
+  String? token;
+  String? modelId;
+
   Future<void> _authenticateUser() async {
     if (_formKey.currentState?.validate() ?? false) {
-    try {
+      try {
         var authData = await pb.admins.authWithPassword(
           _emailController.text.trim(),
           _passwordController.text.trim(),
         );
-        print(pb.authStore.isValid);
-        print(pb.authStore.token);
-        print(pb.authStore.model.id);
-            } catch (e) {
+        setState(() {
+          isValid = pb.authStore?.isValid?.toString() ?? 'Unknown';
+          token = pb.authStore?.token ?? 'Unknown';
+          modelId = pb.authStore?.model?.id ?? 'Unknown';
+        });
+      } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('An error occurred: $e')),
         );
@@ -81,6 +88,9 @@ class LoginFormState extends State<LoginForm> {
             onPressed: _authenticateUser,
             child: const Text('Sign In'),
           ),
+          Text('Is Valid: $isValid'),
+          Text('Token: $token'),
+          Text('Model ID: $modelId'),
         ],
       ),
     );
