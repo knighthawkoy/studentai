@@ -1,4 +1,0 @@
-+ cp /openblocks/nginx/nginx-root.conf.template /etc/nginx/nginx.conf
-+ [ -e /openblocks-stacks/ssl/fullchain.pem ]
-+ envsubst $OPENBLOCKS_SERVER_PROXY_PASS,$OPENBLOCKS_NODE_PROXY_PASS
-+ exec nginx -g daemon off;
