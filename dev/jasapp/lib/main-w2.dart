@@ -58,20 +58,14 @@ class LoginFormState extends State<LoginForm> {
     }
   }
 
-@override
-Widget build(BuildContext context) {
-  return Form(
-    key: _formKey,
-    child: Padding(
-      padding: const EdgeInsets.all(16.0),
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
       child: Column(
         children: <Widget>[
           TextFormField(
             controller: _emailController,
-            decoration: InputDecoration(
-              labelText: 'Email',
-              border: OutlineInputBorder(),
-            ),
             validator: (String? value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your email';
@@ -81,36 +75,24 @@ Widget build(BuildContext context) {
               return null;
             },
           ),
-          SizedBox(height: 16.0), // Add some spacing
           TextFormField(
             controller: _passwordController,
-            decoration: InputDecoration(
-              labelText: 'Password',
-              border: OutlineInputBorder(),
-            ),
             validator: (String? value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your password';
               }
               return null;
             },
-            obscureText: true, // Hide the password input
           ),
-          SizedBox(height: 16.0), // Add some spacing
           ElevatedButton(
             onPressed: _authenticateUser,
             child: const Text('Sign In'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.blue, // Set the button color
-              onPrimary: Colors.white, // Set the text color
-            ),
           ),
-           Text('Is Valid: $isValid'),
-           Text('Token: $token'),
-           Text('Model ID: $modelId'),
+          Text('Is Valid: $isValid'),
+          Text('Token: $token'),
+          Text('Model ID: $modelId'),
         ],
       ),
-    ),
-  );
-}
+    );
+  }
 }
