@@ -37,7 +37,6 @@ class LoginFormState extends State<LoginForm> {
   String? isValid;
   String? token;
   String? modelId;
-  bool isLoggedIn = false; // Add this line
 
   Future<void> _authenticateUser() async {
     if (_formKey.currentState?.validate() ?? false) {
@@ -50,7 +49,6 @@ class LoginFormState extends State<LoginForm> {
           isValid = pb.authStore?.isValid?.toString() ?? 'Unknown';
           token = pb.authStore?.token ?? 'Unknown';
           modelId = pb.authStore?.model?.id ?? 'Unknown';
-          isLoggedIn = true; // Set isLoggedIn to true on successful login
         });
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -62,30 +60,6 @@ class LoginFormState extends State<LoginForm> {
 
 @override
 Widget build(BuildContext context) {
-
-if (isLoggedIn) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text('Welcome!', style: TextStyle(fontSize: 24)),
-          Text('Is Valid: $isValid'),
-          Text('Token: $token'),
-          Text('Model ID: $modelId'),
-           ElevatedButton(
-            onPressed: () {
-              setState(() {
-                isLoggedIn = false;
-                isValid = null;
-                token = null;
-                modelId = null;
-              });
-            },
-            child: Text('Logout')), 
-        ],
-      );
-    }
-
-
   return Form(
     key: _formKey,
     child: Padding(
@@ -131,6 +105,9 @@ if (isLoggedIn) {
               onPrimary: Colors.white, // Set the text color
             ),
           ),
+           Text('Is Valid: $isValid'),
+           Text('Token: $token'),
+           Text('Model ID: $modelId'),
         ],
       ),
     ),
