@@ -68,6 +68,7 @@ class LoginFormState extends State<LoginForm> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center, // Add this line
             children: <Widget>[
+              Image.asset('assets/images/jasai-logo.jpg'), // Add this line
               TextFormField(
                 controller: _emailController,
                 decoration: InputDecoration(
