@@ -16,16 +16,24 @@ class LoggedInForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Stack(
       children: <Widget>[
-        Text('Welcome!', style: TextStyle(fontSize: 24)),
-        Text('Is Valid: $isValid'),
-        Text('Token: $token'),
-        Text('Model ID: $modelId'),
-        ElevatedButton(
-          onPressed: onLogout,
-          child: Text('Logout'),
+        Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 50.0),
+            child: Text('Welcome!', style: TextStyle(fontSize: 24)),
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 50.0, left: 10.0),
+            child: ElevatedButton(
+              onPressed: onLogout,
+              child: Text('<'),
+            ),
+          ),
         ),
       ],
     );

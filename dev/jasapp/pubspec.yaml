@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -38,6 +39,9 @@ dependencies:
 
   # Add the pocketbase package
   pocketbase: ^0.18.0
+
+  # Read .env file
+  flutter_dotenv: ^5.0.0
 
 dev_dependencies:
   flutter_test:

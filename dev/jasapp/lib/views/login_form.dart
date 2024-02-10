@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pocketbase/pocketbase.dart'; // Import PocketBase
 import 'logged_in_form.dart'; // Import LoggedInForm
+import 'register_form.dart'; // Import RegisterForm
 
 class LoginForm extends StatefulWidget {
   final PocketBase pb; // Add this line
@@ -10,7 +11,6 @@ class LoginForm extends StatefulWidget {
   @override
   LoginFormState createState() => LoginFormState();
 }
-
 
 class LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
@@ -101,8 +101,14 @@ class LoginFormState extends State<LoginForm> {
               ),
               SizedBox(height: 16.0), // Add some spacing
               ElevatedButton(
-                onPressed: _authenticateUser,
-                child: const Text('Sign In'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => RegisterForm(pb: widget.pb)),
+                  );
+                },
+                child: Text('Register'),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.blue, // Set the button color
                   onPrimary: Colors.white, // Set the text color
