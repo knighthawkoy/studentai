@@ -12,9 +12,16 @@ services:
   ai:
     container_name: jasai
     restart: unless-stopped
-    image: embedchain/rest-api:latest 
+    image: jasi/ec-rest-api:latest 
+    env_file:
+      - ./ai/variables.env
+    volumes:
+      - ./ai/:/usr/src/api
+    build:
+      context: ai
+      dockerfile: Dockerfile
     ports:
-      - "9222:8080"
+      - "9223:5000"
   auth:
     container_name: jasauth
     restart: unless-stopped
